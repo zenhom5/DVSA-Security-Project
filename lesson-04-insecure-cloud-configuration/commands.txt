@@ -1,0 +1,24 @@
+# =========================
+# Upload File to S3 (if allowed)
+# =========================
+# (example conceptual step – depends on setup)
+
+# =========================
+# Trigger Lambda Processing
+# =========================
+# Uploading a file triggers Lambda automatically
+
+
+# =========================
+# Observe Behavior
+# =========================
+# Check if:
+# - file is accepted
+# - Lambda processes it
+# - unexpected behavior occurs
+
+
+# =========================
+# After Fix
+# =========================
+# Upload should be denied OR safely handled
