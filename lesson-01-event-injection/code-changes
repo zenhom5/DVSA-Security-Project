@@ -1,0 +1,41 @@
+#before
+const serialize = require('node-serialize');
+
+exports.handler = async (event) => {
+    const data = serialize.unserialize(event.body);
+
+    // dangerous: executes injected function
+    return {
+        statusCode: 200,
+        body: JSON.stringify({ status: "ok" })
+    };
+};
+
+
+#After
+
+
+exports.handler = async (event) => {
+    try {
+        const data = JSON.parse(event.body);
+
+        // optional: validate allowed fields
+        if (!data.action || typeof data.action !== "string") {
+            throw new Error("Invalid input");
+        }
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ status: "ok" })
+        };
+
+    } catch (e) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({
+                status: "err",
+                msg: "Invalid request format"
+            })
+        };
+    }
+};  
