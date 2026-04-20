@@ -1,0 +1,35 @@
+# =========================
+# Normal Request
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"orders"}' | jq
+
+
+# =========================
+# Access Another User Data (if possible)
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"get","order-id":"<ORDER_ID>"}' | jq
+
+
+# =========================
+# Observe Sensitive Data Exposure
+# =========================
+# Check if response contains:
+# - user identifiers
+# - internal fields
+# - extra metadata
+# - unexpected data
+
+
+# =========================
+# After Fix (Should Return Limited Data)
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"orders"}' | jq
