@@ -1,0 +1,23 @@
+#Before
+exports.handler = async (event) => {
+    const fileName = event.Records[0].s3.object.key;
+
+    // unsafe usage
+    processFile(fileName);
+
+    return { statusCode: 200 };
+};
+
+#After
+exports.handler = async (event) => {
+    const fileName = event.Records[0].s3.object.key;
+
+    // basic validation
+    if (!fileName.endsWith(".txt")) {
+        throw new Error("Invalid file type");
+    }
+
+    processFile(fileName);
+
+    return { statusCode: 200 };
+};
