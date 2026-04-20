@@ -1,0 +1,21 @@
+# Fix Notes - Lesson 1
+
+## Root Cause
+The application used the `node-serialize` library, which allows execution of functions embedded in JSON via the `$$ND_FUNC$$` marker.
+
+This allowed attackers to inject and execute arbitrary code.
+
+## Fix Applied
+- Removed `node-serialize`
+- Replaced with safe `JSON.parse()`
+- Wrapped parsing in try-catch
+- Added strict validation on input fields
+
+## Why This Fix Works
+- `JSON.parse()` does not execute functions
+- Malicious payloads are treated as invalid input
+- The backend no longer evaluates user-controlled code
+
+## Result
+- RCE is prevented
+- Malicious payloads are rejected safely
