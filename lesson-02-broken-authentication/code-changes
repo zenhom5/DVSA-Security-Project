@@ -1,0 +1,32 @@
+#Before 
+exports.handler = async (event) => {
+    const token = event.headers.authorization;
+
+    const payload = JSON.parse(
+        Buffer.from(token.split('.')[1], 'base64').toString()
+    );
+
+    const user = payload.username;
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify({ user })
+    };
+};
+
+#After 
+
+exports.handler = async (event) => {
+    const token = event.headers.authorization;
+
+    const payload = JSON.parse(
+        Buffer.from(token.split('.')[1], 'base64').toString()
+    );
+
+    const user = payload.username;
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify({ user })
+    };
+};
