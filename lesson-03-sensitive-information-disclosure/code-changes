@@ -1,0 +1,26 @@
+#Before
+exports.handler = async (event) => {
+    const order = await getOrder(event.body);
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify(order) // returns full object
+    };
+};
+
+# After 
+
+exports.handler = async (event) => {
+    const order = await getOrder(event.body);
+
+    const filtered = {
+        orderId: order.orderId,
+        status: order.status,
+        total: order.total
+    };
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify(filtered)
+    };
+};
