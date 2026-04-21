@@ -1,0 +1,23 @@
+# =========================
+# Normal Request
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+--data-raw '{"action":"orders"}' | jq
+
+
+# =========================
+# Observe Response
+# =========================
+# Check if admin email appears in:
+# - response body
+# - metadata
+# - user information
+
+
+# =========================
+# After Fix
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+--data-raw '{"action":"orders"}' | jq
