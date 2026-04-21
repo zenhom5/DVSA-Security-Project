@@ -1,0 +1,34 @@
+#Before
+
+exports.handler = async (event) => {
+    const orders = await getAllOrders();
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify(orders)
+    };
+};
+
+#After
+
+exports.handler = async (event) => {
+    const user = event.requestContext.authorizer.user;
+    const role = event.requestContext.authorizer.role;
+
+    if (role !== "admin") {
+        return {
+            statusCode: 403,
+            body: JSON.stringify({
+                status: "err",
+                msg: "access denied"
+            })
+        };
+    }
+
+    const orders = await getAllOrders();
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify(orders)
+    };
+};
