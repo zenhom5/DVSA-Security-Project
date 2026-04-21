@@ -1,0 +1,21 @@
+# =========================
+# Attempt Login with Valid User
+# =========================
+# (conceptual - depends on your setup)
+
+# =========================
+# Attempt Login with Invalid User
+# =========================
+
+# =========================
+# Observe Difference
+# =========================
+# Compare:
+# - error messages
+# - response structure
+
+
+# =========================
+# After Fix
+# =========================
+# Both responses should be identical
