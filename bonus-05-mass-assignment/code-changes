@@ -1,0 +1,32 @@
+#Before
+
+exports.handler = async (event) => {
+    const body = JSON.parse(event.body);
+
+    const user = {
+        name: body.name,
+        role: body.role // directly assigned
+    };
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify(user)
+    };
+};
+
+#After
+
+exports.handler = async (event) => {
+    const body = JSON.parse(event.body);
+
+    const user = {
+        name: body.name
+        // role is not accepted from user input
+    };
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify(user)
+    };
+};
+
