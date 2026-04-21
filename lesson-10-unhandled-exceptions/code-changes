@@ -1,0 +1,32 @@
+#Before 
+
+exports.handler = async (event) => {
+    const body = JSON.parse(event.body);
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify({ result: body.action.toUpperCase() })
+    };
+};
+
+#After 
+
+exports.handler = async (event) => {
+    try {
+        const body = JSON.parse(event.body);
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ result: body.action.toUpperCase() })
+        };
+
+    } catch (e) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({
+                status: "err",
+                msg: "Invalid request"
+            })
+        };
+    }
+};
