@@ -1,0 +1,33 @@
+# =========================
+# Normal Request
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"orders"}' | jq
+
+
+# =========================
+# Attempt to Access Other Data
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"get","order-id":"<OTHER_ORDER_ID>"}' | jq
+
+
+# =========================
+# Observe Behavior
+# =========================
+# Check if:
+# - unauthorized data is returned
+# - Lambda accesses data freely
+
+
+# =========================
+# After Fix (Should Fail)
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"get","order-id":"<OTHER_ORDER_ID>"}' | jq
