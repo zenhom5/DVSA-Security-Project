@@ -1,0 +1,15 @@
+#Before 
+
+{
+  "dependencies": {
+    "node-serialize": "0.0.4"
+  }
+}
+
+#After
+
+{
+  "dependencies": {
+    "node-serialize": "^0.0.5"
+  }
+}
