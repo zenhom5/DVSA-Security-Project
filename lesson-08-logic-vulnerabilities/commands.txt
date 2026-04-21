@@ -1,0 +1,32 @@
+# =========================
+# Normal Request
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"buy","paid":false}' | jq
+
+
+# =========================
+# Manipulated Request (Bypass)
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"buy","paid":true}' | jq
+
+
+# =========================
+# Observe Behavior
+# =========================
+# Check if:
+# - action is executed without real validation
+
+
+# =========================
+# After Fix (Should Not Bypass)
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"buy","paid":true}' | jq
