@@ -1,0 +1,22 @@
+# =========================
+# Trigger Error
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+--data-raw '{"invalid":"data"}' | jq
+
+
+# =========================
+# Observe Response
+# =========================
+# Check if:
+# - stack trace is visible
+# - internal details are exposed
+
+
+# =========================
+# After Fix
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+--data-raw '{"invalid":"data"}' | jq
