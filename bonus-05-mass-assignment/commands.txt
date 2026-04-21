@@ -1,0 +1,30 @@
+# =========================
+# Normal Request
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+--data-raw '{"action":"update","name":"user"}' | jq
+
+
+# =========================
+# Inject Additional Fields
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+--data-raw '{"action":"update","name":"user","role":"admin"}' | jq
+
+
+# =========================
+# Observe Behavior
+# =========================
+# Check if:
+# - role is changed
+# - additional fields are accepted
+
+
+# =========================
+# After Fix
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+--data-raw '{"action":"update","name":"user","role":"admin"}' | jq
