@@ -5,6 +5,8 @@ This repository contains my security analysis of the Damn Vulnerable Serverless 
 
 The project focuses on identifying, exploiting, and fixing vulnerabilities in a serverless AWS environment.
 
+All vulnerabilities were fully tested in a live AWS environment and validated using real attack scenarios.
+
 ---
 
 ## Project Overview
