@@ -1,32 +1,21 @@
 # =========================
-# Access Own Resource
+# Unauthenticated Request (Attack)
 # =========================
-curl -s "$API" \
+curl -s "$API/feedback" \
 -H "content-type: application/json" \
--H "authorization: Bearer <TOKEN_B>" \
---data-raw '{"action":"get","order-id":"<OWN_ORDER_ID>"}' | jq
-
-
-# =========================
-# Modify Identifier (Attack)
-# =========================
-curl -s "$API" \
--H "content-type: application/json" \
--H "authorization: Bearer <TOKEN_B>" \
---data-raw '{"action":"get","order-id":"<VICTIM_ORDER_ID>"}' | jq
+--data-raw '{"message":"test"}' | jq
 
 
 # =========================
 # Observe Behavior
 # =========================
 # Check if:
-# - unauthorized data is returned
+# - request is accepted without token
 
 
 # =========================
 # After Fix (Should Fail)
 # =========================
-curl -s "$API" \
+curl -s "$API/feedback" \
 -H "content-type: application/json" \
--H "authorization: Bearer <TOKEN_B>" \
---data-raw '{"action":"get","order-id":"<VICTIM_ORDER_ID>"}' | jq
+--data-raw '{"message":"test"}' | jq
