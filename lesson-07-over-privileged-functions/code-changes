@@ -1,0 +1,14 @@
+#Before 
+{
+  "Effect": "Allow",
+  "Action": "dynamodb:*",
+  "Resource": "*"
+}
+
+#After 
+
+{
+  "Effect": "Allow",
+  "Action": ["dynamodb:GetItem"],
+  "Resource": "arn:aws:dynamodb:<REGION>:<ACCOUNT_ID>:table/Orders"
+}
