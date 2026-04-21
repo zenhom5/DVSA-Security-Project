@@ -1,0 +1,20 @@
+# =========================
+# Access Admin Endpoint (Unauthorized)
+# =========================
+curl -s "$API/admin/orders" \
+-H "authorization: Bearer <TOKEN_B>" | jq
+
+
+# =========================
+# Observe Response
+# =========================
+# Check if:
+# - admin data is returned
+# - no authorization check is enforced
+
+
+# =========================
+# After Fix
+# =========================
+curl -s "$API/admin/orders" \
+-H "authorization: Bearer <TOKEN_B>" | jq
