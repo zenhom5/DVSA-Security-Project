@@ -1,0 +1,31 @@
+
+---
+
+# 📄 `lesson-05-broken-access-control/commands.txt`
+
+```text id="l5cmds"
+# =========================
+# Normal Request (Own Data)
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"get","order-id":"<OWN_ORDER_ID>"}' | jq
+
+
+# =========================
+# Unauthorized Access Attempt
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"get","order-id":"<VICTIM_ORDER_ID>"}' | jq
+
+
+# =========================
+# After Fix (Should Fail)
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+-H "authorization: Bearer <TOKEN_B>" \
+--data-raw '{"action":"get","order-id":"<VICTIM_ORDER_ID>"}' | jq
