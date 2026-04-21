@@ -1,0 +1,37 @@
+#Before
+
+exports.handler = async (event) => {
+    const body = JSON.parse(event.body);
+
+    if (body.paid === true) {
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ status: "purchase complete" })
+        };
+    }
+
+    return {
+        statusCode: 400,
+        body: JSON.stringify({ status: "payment required" })
+    };
+};
+
+#After
+
+exports.handler = async (event) => {
+    const body = JSON.parse(event.body);
+
+    const paymentVerified = checkPaymentFromDatabase(body.userId);
+
+    if (!paymentVerified) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ status: "payment required" })
+        };
+    }
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify({ status: "purchase complete" })
+    };
+};
