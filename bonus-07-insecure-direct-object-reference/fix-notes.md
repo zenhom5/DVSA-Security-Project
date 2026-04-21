@@ -1,17 +1,17 @@
 # Fix Notes - Bonus 7
 
 ## Root Cause
-The application trusted user-supplied identifiers without verifying ownership.
+The feedback upload endpoint did not enforce authentication.
 
 ## Fix Applied
-- Implemented ownership validation
-- Enforced authorization checks
-- Restricted access to user-owned resources
+- Added authentication check
+- Required valid token before processing request
+- Restricted access to authorized users
 
 ## Why This Fix Works
-- Prevents unauthorized access to resources
-- Ensures data isolation between users
+- Prevents unauthorized access
+- Ensures only authenticated users can use the endpoint
 
 ## Result
-- Unauthorized access is blocked
-- Application is secure against IDOR attacks
+- Unauthenticated requests are rejected
+- Endpoint is secured
