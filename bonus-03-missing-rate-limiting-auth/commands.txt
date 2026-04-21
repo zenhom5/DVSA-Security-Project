@@ -1,0 +1,23 @@
+# =========================
+# Simulate Multiple Login Attempts
+# =========================
+for i in {1..20}; do
+  curl -s "$API" \
+  -H "content-type: application/json" \
+  --data-raw '{"username":"<USER>","password":"wrong"}' &
+done
+
+
+# =========================
+# Observe Behavior
+# =========================
+# Check if:
+# - requests are unlimited
+# - no blocking occurs
+
+
+# =========================
+# After Fix
+# =========================
+# Repeat the same loop
+# Requests should be limited or blocked
