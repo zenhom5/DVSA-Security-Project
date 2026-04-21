@@ -1,0 +1,28 @@
+#Before
+
+exports.handler = async (event) => {
+    return {
+        statusCode: 401,
+        body: JSON.stringify({ msg: "Invalid credentials" })
+    };
+};
+
+#After
+
+let attempts = 0;
+
+exports.handler = async (event) => {
+    attempts++;
+
+    if (attempts > 5) {
+        return {
+            statusCode: 429,
+            body: JSON.stringify({ msg: "Too many attempts" })
+        };
+    }
+
+    return {
+        statusCode: 401,
+        body: JSON.stringify({ msg: "Invalid credentials" })
+    };
+};
