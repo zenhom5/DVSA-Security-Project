@@ -1,38 +1,36 @@
 #Before 
 
 exports.handler = async (event) => {
-    const orderId = JSON.parse(event.body).orderId;
+    const body = JSON.parse(event.body);
 
-    const order = await getOrderById(orderId);
+    await saveFeedback(body.message);
 
     return {
         statusCode: 200,
-        body: JSON.stringify(order)
+        body: JSON.stringify({ status: "ok" })
     };
 };
-
 #After
 
 exports.handler = async (event) => {
-    const body = JSON.parse(event.body);
-    const orderId = body.orderId;
+    const auth = event.headers.authorization;
 
-    const user = event.requestContext.authorizer.user;
-
-    const order = await getOrderById(orderId);
-
-    if (order.userId !== user) {
+    if (!auth) {
         return {
-            statusCode: 403,
+            statusCode: 401,
             body: JSON.stringify({
                 status: "err",
-                msg: "access denied"
+                msg: "unauthorized"
             })
         };
     }
 
+    const body = JSON.parse(event.body);
+
+    await saveFeedback(body.message);
+
     return {
         statusCode: 200,
-        body: JSON.stringify(order)
+        body: JSON.stringify({ status: "ok" })
     };
 };
