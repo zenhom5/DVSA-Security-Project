@@ -1,0 +1,38 @@
+#Before 
+
+exports.handler = async (event) => {
+    const orderId = JSON.parse(event.body).orderId;
+
+    const order = await getOrderById(orderId);
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify(order)
+    };
+};
+
+#After
+
+exports.handler = async (event) => {
+    const body = JSON.parse(event.body);
+    const orderId = body.orderId;
+
+    const user = event.requestContext.authorizer.user;
+
+    const order = await getOrderById(orderId);
+
+    if (order.userId !== user) {
+        return {
+            statusCode: 403,
+            body: JSON.stringify({
+                status: "err",
+                msg: "access denied"
+            })
+        };
+    }
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify(order)
+    };
+};
