@@ -1,0 +1,31 @@
+#Before 
+
+exports.handler = async (event) => {
+    return {
+        statusCode: 200,
+        body: JSON.stringify({ status: "ok" })
+    };
+};
+
+#After
+
+let requestCount = 0;
+
+exports.handler = async (event) => {
+    requestCount++;
+
+    if (requestCount > 50) {
+        return {
+            statusCode: 429,
+            body: JSON.stringify({
+                status: "err",
+                msg: "Too many requests"
+            })
+        };
+    }
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify({ status: "ok" })
+    };
+};
