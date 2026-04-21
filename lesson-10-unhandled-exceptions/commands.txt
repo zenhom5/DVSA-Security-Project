@@ -1,0 +1,30 @@
+# =========================
+# Normal Request
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+--data-raw '{"action":"orders"}' | jq
+
+
+# =========================
+# Trigger Error
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+--data-raw '{"invalid":"data"}' | jq
+
+
+# =========================
+# Observe Error
+# =========================
+# Check if:
+# - stack trace is exposed
+# - internal details are returned
+
+
+# =========================
+# After Fix (Handled Error)
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+--data-raw '{"invalid":"data"}' | jq
