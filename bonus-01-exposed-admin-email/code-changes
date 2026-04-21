@@ -1,0 +1,22 @@
+#Before
+
+exports.handler = async (event) => {
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+            adminEmail: "admin@example.com",
+            status: "ok"
+        })
+    };
+};
+
+#After
+
+exports.handler = async (event) => {
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+            status: "ok"
+        })
+    };
+};
