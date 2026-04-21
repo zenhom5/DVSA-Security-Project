@@ -1,0 +1,35 @@
+# =========================
+# Normal Request
+# =========================
+curl -s "$API" \
+-H "content-type: application/json" \
+--data-raw '{"action":"orders"}' | jq
+
+
+# =========================
+# Simulated DoS Attack
+# =========================
+for i in {1..100}; do
+  curl -s "$API" \
+  -H "content-type: application/json" \
+  --data-raw '{"action":"orders"}' &
+done
+
+
+# =========================
+# Observe System Behavior
+# =========================
+# Check for:
+# - slow responses
+# - errors
+# - system instability
+
+
+# =========================
+# After Fix (Should Limit Requests)
+# =========================
+for i in {1..100}; do
+  curl -s "$API" \
+  -H "content-type: application/json" \
+  --data-raw '{"action":"orders"}' &
+done
