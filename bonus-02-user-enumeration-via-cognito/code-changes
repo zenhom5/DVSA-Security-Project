@@ -1,0 +1,22 @@
+#Before
+
+if (!userExists) {
+    return {
+        statusCode: 404,
+        body: JSON.stringify({ msg: "User not found" })
+    };
+}
+
+return {
+    statusCode: 401,
+    body: JSON.stringify({ msg: "Incorrect password" })
+};
+
+#After
+
+return {
+    statusCode: 401,
+    body: JSON.stringify({
+        msg: "Invalid username or password"
+    })
+};
